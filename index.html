@@ -51,26 +51,19 @@
     background:
       radial-gradient(680px 300px at 12% -10%, rgba(91,108,255,.22), transparent 60%),
       radial-gradient(680px 320px at 92% -20%, rgba(154,91,255,.20), transparent 60%);}
-  .hero-inner{max-width:1160px;margin:0 auto}
-  .hero-top{display:flex;align-items:center;justify-content:space-between;gap:14px}
-  .brand{display:flex;align-items:center;gap:14px;min-width:0}
-  .logo{width:48px;height:48px;border-radius:14px;flex:none;
-    background:linear-gradient(135deg,var(--accent),var(--accent2));
-    display:grid;place-items:center;font-size:24px;
-    box-shadow:0 8px 22px rgba(122,108,255,.4)}
-  .brand h1{font-size:24px;margin:0;letter-spacing:-.03em;font-weight:900}
-  .brand .sub{color:var(--muted);font-size:13px;margin:2px 0 0;max-width:640px}
+  .hero-inner{max-width:1160px;margin:0 auto;text-align:center}
+  .brand h1{font-size:26px;margin:0;letter-spacing:-.03em;font-weight:900}
+  .brand .sub{color:var(--muted);font-size:13px;margin:6px auto 0;max-width:640px}
 
-  .icon-btn{background:var(--panel);border:1px solid var(--line);color:var(--text);flex:none;
-    width:42px;height:42px;border-radius:12px;cursor:pointer;font-size:17px;
-    display:grid;place-items:center;transition:.14s;box-shadow:var(--shadow)}
-  .icon-btn:hover{border-color:var(--faint);transform:translateY(-1px)}
+  .theme-toggle{position:absolute;top:18px;right:20px;background:var(--panel);border:1px solid var(--line);
+    color:var(--muted);padding:8px 13px;border-radius:11px;cursor:pointer;font-size:12.5px;font-weight:600;
+    box-shadow:var(--shadow);transition:.14s}
+  .theme-toggle:hover{color:var(--text);border-color:var(--faint)}
 
-  .toolbar{display:flex;gap:10px;align-items:center;margin-top:20px;flex-wrap:wrap}
-  .search-wrap{flex:1;min-width:220px;position:relative;display:flex;align-items:center}
-  .search-ic{position:absolute;left:14px;font-size:15px;opacity:.55;pointer-events:none}
+  .toolbar{display:flex;gap:10px;align-items:center;justify-content:center;margin-top:20px;flex-wrap:wrap}
+  .search-wrap{flex:1;min-width:220px;max-width:560px;position:relative;display:flex;align-items:center}
   .search{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--text);
-    padding:12px 14px 12px 40px;border-radius:13px;font-size:14.5px;box-shadow:var(--shadow);transition:.14s}
+    padding:12px 16px;border-radius:13px;font-size:14.5px;box-shadow:var(--shadow);transition:.14s}
   .search:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,108,255,.18)}
   .search::placeholder{color:var(--faint)}
   .btn{background:var(--panel);border:1px solid var(--line);color:var(--text);
@@ -81,25 +74,19 @@
     color:#fff;font-weight:600;box-shadow:0 8px 20px rgba(91,108,255,.38)}
   .btn.primary:hover{filter:brightness(1.06)}
 
-  .metabar{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:18px}
+  .metabar{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:18px}
   .stats{display:flex;gap:10px;flex-wrap:wrap}
   .stat{background:var(--panel);border:1px solid var(--line);border-radius:13px;
     padding:8px 14px;display:flex;align-items:baseline;gap:7px;box-shadow:var(--shadow)}
   .stat b{font-size:17px;font-weight:800;letter-spacing:-.02em}
   .stat span{font-size:12px;color:var(--muted)}
-  .status{font-size:12.5px;color:var(--muted);display:inline-flex;align-items:center;gap:8px;margin-left:auto}
+  .status{font-size:12.5px;color:var(--muted);display:inline-flex;align-items:center;gap:8px}
   .status .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.15)}
   .status.loading .dot{background:#f59e0b;box-shadow:0 0 0 4px rgba(245,158,11,.15);animation:pulse 1s infinite}
   @keyframes pulse{50%{opacity:.35}}
 
   /* ---------- NAVIGÁCIA PLATFORIEM (podstránky) ---------- */
-  .pnav{position:sticky;top:0;z-index:40;display:flex;gap:7px;overflow-x:auto;
-    margin:0 -20px;padding:12px 20px;
-    background:color-mix(in srgb, var(--bg) 86%, transparent);
-    backdrop-filter:saturate(1.5) blur(12px);-webkit-backdrop-filter:saturate(1.5) blur(12px);
-    border-bottom:1px solid var(--line)}
-  .pnav::-webkit-scrollbar{height:6px}
-  .pnav::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+  .pnav{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:20px 0 2px;padding:0}
   .ptab{flex:none;display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border-radius:12px;
     border:1px solid var(--line);background:var(--panel);color:var(--muted);font-size:13.5px;font-weight:600;
     cursor:pointer;transition:.14s;white-space:nowrap;box-shadow:var(--shadow)}
@@ -231,23 +218,20 @@
 <div class="wrap">
   <header class="hero">
     <div class="hero-inner">
-      <div class="hero-top">
-        <div class="brand">
-          <div class="logo">📡</div>
-          <div>
-            <h1>VyBOOSTované novinky</h1>
-            <p class="sub">Praktické novinky a zmeny v nastaveniach reklamných systémov — primárne pre slovenský a český trh (Sklik, Zboží, Heureka, Google Ads, Meta…). Naživo z overených zdrojov, rozdelené podľa platforiem a mesiacov.</p>
-          </div>
-        </div>
-        <button id="themeToggle" class="icon-btn" title="Prepnúť svetlý / tmavý režim">🌙</button>
+      <button id="themeToggle" class="theme-toggle" title="Prepnúť svetlý / tmavý režim">Tmavý režim</button>
+
+      <div class="brand">
+        <h1>VyBOOSTované novinky</h1>
+        <p class="sub">Praktické novinky a zmeny v nastaveniach reklamných systémov — primárne pre slovenský a český trh (Sklik, Heureka, Google Ads, Meta…). Naživo z overených zdrojov, rozdelené podľa platforiem a mesiacov.</p>
       </div>
+
+      <nav id="platformNav" class="pnav"></nav>
 
       <div class="toolbar">
         <div class="search-wrap">
-          <span class="search-ic">🔍</span>
           <input id="search" class="search" placeholder="Hľadať v novinkách (napr. Performance Max, Advantage+, targeting)…" />
         </div>
-        <button id="refresh" class="btn primary">↻ Obnoviť</button>
+        <button id="refresh" class="btn primary">Obnoviť</button>
       </div>
 
       <div class="metabar">
@@ -256,8 +240,6 @@
       </div>
     </div>
   </header>
-
-  <nav id="platformNav" class="pnav"></nav>
 
   <div id="pageHead" class="page-head"></div>
 
@@ -275,7 +257,7 @@
 
   <div class="foot">
     <p><strong>Ako to funguje:</strong> stránka pri každom otvorení / obnovení sťahuje najnovšie články priamo z RSS kanálov jednotlivých webov, odfiltruje len tie o reklamných platformách, rozdelí ich podľa platforiem (podstránky hore) a mesiacov, a rovnakú novinku z viacerých webov zoskupí pod jednu položku. Zdroj je uvedený priamo pri každej novinke.</p>
-    <p>Zdroje — 🇨🇿🇸🇰 SK/CZ: MediaGuru, Marketingové noviny, Ecommerce Bridge, Digichef, Sklik / Seznam blog; 🌍 globálne: PPC Land, Search Engine Journal, Search Engine Land, Search Engine Roundtable, Meta Newsroom, Social Media Today, HubSpot. Zoznam zdrojov a kľúčových slov upravíš v súbore <code>index.html</code> (sekcia <code>SOURCES</code> / <code>PLATFORMS</code>).</p>
+    <p>Zdroje — SK/CZ: MediaGuru, Marketingové noviny, Ecommerce Bridge, Digichef, Sklik / Seznam blog; globálne: PPC Land, Search Engine Journal, Search Engine Land, Search Engine Roundtable, Meta Newsroom, Social Media Today, HubSpot. Zoznam zdrojov a kľúčových slov upravíš v súbore <code>index.html</code> (sekcia <code>SOURCES</code> / <code>PLATFORMS</code>).</p>
   </div>
 </div>
 
@@ -286,7 +268,7 @@
     <div id="sendStatus" class="send-status"></div>
   </div>
   <button class="send-clear" id="sendClear">Zrušiť výber</button>
-  <button class="send-go" id="sendGo">✉️ Odoslať do MailerLite</button>
+  <button class="send-go" id="sendGo">Odoslať do MailerLite</button>
 </div>
 
 <script>
@@ -357,7 +339,7 @@ function applyTheme(t){
   const root = document.documentElement;
   if(t) root.setAttribute('data-theme', t); else root.removeAttribute('data-theme');
   const isDark = t ? t === 'dark' : prefersDark();
-  document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
+  document.getElementById('themeToggle').textContent = isDark ? 'Svetlý režim' : 'Tmavý režim';
 }
 (function initTheme(){
   let saved = '';
@@ -636,7 +618,7 @@ function platformCounts(){
 function buildNav(){
   const pc = platformCounts();
   const nav = document.getElementById('platformNav');
-  let html = `<a href="#prehlad" class="ptab${currentPlatform===''?' on':''}">📊 Prehľad<span class="n">${CLUSTERS.length}</span></a>`;
+  let html = `<a href="#prehlad" class="ptab${currentPlatform===''?' on':''}">Prehľad<span class="n">${CLUSTERS.length}</span></a>`;
   PLATFORMS.filter(p => pc[p.name]).forEach(p => {
     const on = currentPlatform === p.name;
     html += `<a href="#${slugify(p.name)}" class="ptab${on?' on':''}"${on?` style="--tc:${p.color}"`:''}>` +
@@ -662,7 +644,6 @@ function renderTiles(){
   el.innerHTML = list.map(p => {
     const n = pc[p.name];
     return `<a class="tile" href="#${slugify(p.name)}" style="--tc:${p.color}" title="Otvoriť podstránku ${p.name}">
-      <span class="tile-arrow">→</span>
       <div class="tile-ic">
         <img class="tile-logo" src="https://www.google.com/s2/favicons?domain=${p.domain}&sz=64" alt="${p.name} logo" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='';">
         <span class="tile-initials" style="display:none">${initials(p.name)}</span>
@@ -682,8 +663,7 @@ function buildSourceFilter(){
     const el = document.createElement('div');
     el.className = 'chip' + (activeSources.has(s.short) ? ' on':'');
     if(activeSources.has(s.short)) el.style.background = s.color;
-    const flag = s.region === 'cz' ? '🇨🇿' : (s.region === 'sk' ? '🇸🇰' : '🌍');
-    el.innerHTML = `<span class="swatch" style="background:${s.color}"></span>${flag} ${s.name}<span class="cnt">${sCount[s.short]}</span>`;
+    el.innerHTML = `<span class="swatch" style="background:${s.color}"></span>${s.name}<span class="cnt">${sCount[s.short]}</span>`;
     el.onclick = () => {
       activeSources.has(s.short) ? activeSources.delete(s.short) : activeSources.add(s.short);
       buildSourceFilter(); render();
@@ -718,7 +698,7 @@ function renderPageHead(){
   const el = document.getElementById('pageHead');
   if(!currentPlatform){
     el.innerHTML =
-      `<h2 class="ph-title">📊 Prehľad všetkých platforiem</h2>
+      `<h2 class="ph-title">Prehľad všetkých platforiem</h2>
        <p class="ph-sub">Najnovšie novinky a zmeny zo všetkých sledovaných reklamných platforiem, rozdelené podľa mesiacov. Hore si vyber konkrétnu platformu pre jej samostatnú podstránku.</p>`;
     return;
   }
@@ -757,7 +737,7 @@ function render(){
   const visible = CLUSTERS.filter(matchesFilters);
 
   if(!visible.length){
-    root.innerHTML = `<div class="empty"><div class="big">🔍</div>
+    root.innerHTML = `<div class="empty">
       ${ALL.length ? 'Žiadne novinky nezodpovedajú zvolenej platforme či filtrom.' : 'Zatiaľ žiadne dáta — klikni na „Obnoviť“.'}</div>`;
     return;
   }
@@ -809,7 +789,7 @@ function cardHtml(c){
     ? c.date.toLocaleDateString('sk-SK',{day:'numeric',month:'short',year:'numeric'})
     : 'Bez dátumu';
   const multi = srcList.length > 1
-    ? `<span class="multi">↔ tú istú novinku priniesli ${srcList.length} zdroje</span>`
+    ? `<span class="multi">tú istú novinku priniesli ${srcList.length} zdroje</span>`
     : '';
 
   const key = c.link || c.title;
@@ -896,15 +876,15 @@ async function sendToMailerLite(){
     });
     const out = await res.json().catch(() => ({}));
     if(res.ok){
-      setSendStatus(out.sent ? '✅ Kampaň bola odoslaná cez MailerLite.' : '✅ Hotovo — koncept kampane je pripravený v MailerLite.');
+      setSendStatus(out.sent ? 'Kampaň bola odoslaná cez MailerLite.' : 'Hotovo — koncept kampane je pripravený v MailerLite.');
       selected.clear();
       render(); renderSelectionBar();
       setTimeout(() => { document.getElementById('sendbar').classList.remove('on'); }, 4000);
     }else{
-      setSendStatus('⚠️ ' + (out.error || ('Chyba ' + res.status)));
+      setSendStatus(out.error || ('Chyba ' + res.status));
     }
   }catch(e){
-    setSendStatus('⚠️ Nedostupné /api/mailerlite — funguje až po nasadení online (viď NAPOJENIE.md).');
+    setSendStatus('Nedostupné /api/mailerlite — funguje až po nasadení online (viď NAPOJENIE.md).');
   }finally{
     go.disabled = false;
   }
