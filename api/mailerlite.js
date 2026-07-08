@@ -58,11 +58,11 @@ function buildHtml(items) {
     <table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f6fb"><tr><td align="center" style="padding:24px 12px">
       <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%">
         <tr><td style="padding:0 0 18px">
-          <div style="font-size:22px;font-weight:800;color:#141824">📡 Marketing Radar</div>
+          <div style="font-size:22px;font-weight:800;color:#141824">📡 VyBOOSTované novinky</div>
           <div style="font-size:13px;color:#5c6373;margin-top:4px">Vybrané novinky a zmeny z reklamných systémov</div>
         </td></tr>
         ${rows}
-        <tr><td style="padding:8px 0 0;font-size:12px;color:#98a0b3">Vygenerované z Marketing Radar.</td></tr>
+        <tr><td style="padding:8px 0 0;font-size:12px;color:#98a0b3">Vygenerované z aplikácie VyBOOSTované novinky.</td></tr>
       </table>
     </td></tr></table>
   </body></html>`;
@@ -91,7 +91,7 @@ module.exports = async (req, res) => {
     return;
   }
 
-  const subject = `Marketing Radar — ${items.length} vybraných noviniek (${new Date().toLocaleDateString('sk-SK')})`;
+  const subject = `VyBOOSTované novinky — ${items.length} vybraných noviniek (${new Date().toLocaleDateString('sk-SK')})`;
   const headers = {
     Authorization: `Bearer ${KEY}`,
     'Content-Type': 'application/json',
