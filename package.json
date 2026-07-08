@@ -1,0 +1,9 @@
+{
+  "name": "marketing-radar",
+  "version": "1.0.0",
+  "description": "Web na sledovanie noviniek a zmien z reklamných platforiem (Google Ads, Meta, TikTok, Microsoft Ads, Sklik...)",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  }
+}

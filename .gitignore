@@ -1,0 +1,21 @@
+# Závislosti
+node_modules/
+
+# Tajné kľúče a lokálne nastavenia — patria do Netlify Environment variables, NIE do gitu
+.env
+.env.*
+*.local
+secrets.*
+
+# Netlify
+.netlify/
+
+# Logy
+npm-debug.log*
+*.log
+
+# OS / editory
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

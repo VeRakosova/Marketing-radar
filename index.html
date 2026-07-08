@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing Radar — novinky a zmeny z reklamných platforiem</title>
+<meta name="description" content="Naživo sťahované novinky, zmeny a aktualizácie z Google Ads, Meta, TikTok, Microsoft Ads, Sklik a ďalších reklamných platforiem — rozdelené podľa mesiacov a zdrojov.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5f6fb; --panel:#ffffff; --panel2:#f1f3fa;
+    --line:#e5e8f1; --text:#141824; --muted:#5c6373; --faint:#98a0b3;
+    --accent:#5b6cff; --accent2:#9a5bff; --accent-ink:#ffffff;
+    --shadow:0 1px 2px rgba(20,24,40,.04), 0 6px 20px rgba(20,24,40,.05);
+    --shadow-hover:0 2px 6px rgba(20,24,40,.06), 0 18px 44px rgba(30,40,90,.14);
+    --radius:18px; --radius-sm:12px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme]){
+      --bg:#0b0d13; --panel:#14171f; --panel2:#1b1f29;
+      --line:#262b37; --text:#e9ebf2; --muted:#9aa2b1; --faint:#69707f;
+      --accent:#7d8cff; --accent2:#b07bff; --accent-ink:#0b0d12;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+      --shadow-hover:0 2px 8px rgba(0,0,0,.4), 0 20px 54px rgba(0,0,0,.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0b0d13; --panel:#14171f; --panel2:#1b1f29;
+    --line:#262b37; --text:#e9ebf2; --muted:#9aa2b1; --faint:#69707f;
+    --accent:#7d8cff; --accent2:#b07bff; --accent-ink:#0b0d12;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    --shadow-hover:0 2px 8px rgba(0,0,0,.4), 0 20px 54px rgba(0,0,0,.55);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 20px 110px}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;overflow:hidden;margin:0 -20px;padding:34px 20px 26px;
+    border-bottom:1px solid var(--line)}
+  .hero::before{content:"";position:absolute;inset:0;z-index:-1;
+    background:
+      radial-gradient(680px 300px at 12% -10%, rgba(91,108,255,.22), transparent 60%),
+      radial-gradient(680px 320px at 92% -20%, rgba(154,91,255,.20), transparent 60%);}
+  .hero-inner{max-width:1160px;margin:0 auto}
+  .hero-top{display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .brand{display:flex;align-items:center;gap:14px;min-width:0}
+  .logo{width:48px;height:48px;border-radius:14px;flex:none;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    display:grid;place-items:center;font-size:24px;
+    box-shadow:0 8px 22px rgba(122,108,255,.4)}
+  .brand h1{font-size:24px;margin:0;letter-spacing:-.03em;font-weight:900}
+  .brand .sub{color:var(--muted);font-size:13px;margin:2px 0 0;max-width:640px}
+
+  .icon-btn{background:var(--panel);border:1px solid var(--line);color:var(--text);flex:none;
+    width:42px;height:42px;border-radius:12px;cursor:pointer;font-size:17px;
+    display:grid;place-items:center;transition:.14s;box-shadow:var(--shadow)}
+  .icon-btn:hover{border-color:var(--faint);transform:translateY(-1px)}
+
+  .toolbar{display:flex;gap:10px;align-items:center;margin-top:20px;flex-wrap:wrap}
+  .search-wrap{flex:1;min-width:220px;position:relative;display:flex;align-items:center}
+  .search-ic{position:absolute;left:14px;font-size:15px;opacity:.55;pointer-events:none}
+  .search{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--text);
+    padding:12px 14px 12px 40px;border-radius:13px;font-size:14.5px;box-shadow:var(--shadow);transition:.14s}
+  .search:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,108,255,.18)}
+  .search::placeholder{color:var(--faint)}
+  .btn{background:var(--panel);border:1px solid var(--line);color:var(--text);
+    padding:11px 16px;border-radius:13px;cursor:pointer;font-size:13.5px;font-weight:500;
+    transition:.14s;box-shadow:var(--shadow);white-space:nowrap}
+  .btn:hover{border-color:var(--faint);transform:translateY(-1px)}
+  .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent;
+    color:#fff;font-weight:600;box-shadow:0 8px 20px rgba(91,108,255,.38)}
+  .btn.primary:hover{filter:brightness(1.06)}
+
+  .metabar{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:18px}
+  .stats{display:flex;gap:10px;flex-wrap:wrap}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:13px;
+    padding:8px 14px;display:flex;align-items:baseline;gap:7px;box-shadow:var(--shadow)}
+  .stat b{font-size:17px;font-weight:800;letter-spacing:-.02em}
+  .stat span{font-size:12px;color:var(--muted)}
+  .status{font-size:12.5px;color:var(--muted);display:inline-flex;align-items:center;gap:8px;margin-left:auto}
+  .status .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.15)}
+  .status.loading .dot{background:#f59e0b;box-shadow:0 0 0 4px rgba(245,158,11,.15);animation:pulse 1s infinite}
+  @keyframes pulse{50%{opacity:.35}}
+
+  /* ---------- NAVIGÁCIA PLATFORIEM (podstránky) ---------- */
+  .pnav{position:sticky;top:0;z-index:40;display:flex;gap:7px;overflow-x:auto;
+    margin:0 -20px;padding:12px 20px;
+    background:color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter:saturate(1.5) blur(12px);-webkit-backdrop-filter:saturate(1.5) blur(12px);
+    border-bottom:1px solid var(--line)}
+  .pnav::-webkit-scrollbar{height:6px}
+  .pnav::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+  .ptab{flex:none;display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border-radius:12px;
+    border:1px solid var(--line);background:var(--panel);color:var(--muted);font-size:13.5px;font-weight:600;
+    cursor:pointer;transition:.14s;white-space:nowrap;box-shadow:var(--shadow)}
+  .ptab:hover{color:var(--text);border-color:var(--faint);transform:translateY(-1px)}
+  .ptab .swatch{width:9px;height:9px;border-radius:3px}
+  .ptab .n{font-size:11px;background:rgba(128,128,128,.16);padding:1px 7px;border-radius:999px;font-weight:700}
+  .ptab.on{color:#fff;border-color:transparent;background:var(--tc,linear-gradient(135deg,var(--accent),var(--accent2)))}
+  .ptab.on .n{background:rgba(255,255,255,.25)}
+
+  /* ---------- HLAVIČKA PODSTRÁNKY ---------- */
+  .page-head{margin:28px 0 4px;display:flex;flex-direction:column;gap:7px}
+  .ph-badge{align-self:flex-start;color:#fff;font-weight:700;font-size:12px;padding:4px 12px;border-radius:8px}
+  .ph-title{font-size:23px;margin:0;font-weight:900;letter-spacing:-.03em}
+  .ph-sub{color:var(--muted);font-size:13.5px;margin:0;max-width:740px}
+
+  /* ---------- DLAŽDICE PLATFORIEM (rozcestník) ---------- */
+  #tilesWrap{margin:22px 0 4px}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:14px;margin-top:2px}
+  .tile{position:relative;overflow:hidden;background:var(--panel);border:1px solid var(--line);
+    border-radius:18px;padding:18px;cursor:pointer;transition:.18s;box-shadow:var(--shadow);
+    display:flex;flex-direction:column;gap:13px;min-height:138px}
+  .tile::after{content:"";position:absolute;inset:0;opacity:0;transition:.18s;pointer-events:none;
+    background:linear-gradient(140deg, color-mix(in srgb, var(--tc) 16%, transparent), transparent 68%)}
+  .tile:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);
+    border-color:color-mix(in srgb, var(--tc) 45%, var(--line))}
+  .tile:hover::after{opacity:1}
+  .tile-ic{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;position:relative;z-index:1;
+    background:#fff;overflow:hidden;border:1px solid color-mix(in srgb, var(--tc) 28%, #e6e8f0);
+    box-shadow:0 8px 18px color-mix(in srgb, var(--tc) 30%, transparent)}
+  .tile-logo{width:26px;height:26px;object-fit:contain;display:block}
+  .tile-initials{font-size:16px;font-weight:800;letter-spacing:.02em;color:var(--tc)}
+  .tile-name{font-size:15.5px;font-weight:800;letter-spacing:-.02em;position:relative;z-index:1;line-height:1.25}
+  .tile-meta{margin-top:auto;display:flex;align-items:baseline;gap:8px;position:relative;z-index:1}
+  .tile-count{font-size:27px;font-weight:900;letter-spacing:-.03em;line-height:1}
+  .tile-sub{font-size:12px;color:var(--muted)}
+  .tile-arrow{position:absolute;top:16px;right:16px;color:var(--faint);font-size:17px;z-index:1;transition:.18s}
+  .tile:hover .tile-arrow{color:var(--tc);transform:translateX(3px)}
+
+  /* ---------- FILTRE ---------- */
+  .filters{margin:22px 0 4px}
+  .flabel{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);
+    font-weight:700;margin:16px 0 10px}
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{background:var(--panel);border:1px solid var(--line);color:var(--muted);
+    padding:7px 12px 7px 11px;border-radius:999px;cursor:pointer;font-size:13px;
+    display:inline-flex;align-items:center;gap:7px;transition:.14s;box-shadow:var(--shadow);user-select:none}
+  .chip:hover{color:var(--text);border-color:var(--faint);transform:translateY(-1px)}
+  .chip.on{color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(20,24,40,.2)}
+  .chip .cnt{font-size:11px;background:rgba(128,128,128,.16);padding:1px 7px;border-radius:999px}
+  .chip.on .cnt{background:rgba(255,255,255,.25)}
+  .swatch{width:9px;height:9px;border-radius:3px;display:inline-block}
+
+  /* ---------- MESIACE ---------- */
+  .month{margin-top:38px}
+  .month-head{display:flex;align-items:center;gap:12px;margin:0 0 18px}
+  .month-head h2{font-size:17px;margin:0;font-weight:800;letter-spacing:-.02em;
+    display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
+  .month-head h2::before{content:"";width:10px;height:10px;border-radius:50%;
+    background:linear-gradient(135deg,var(--accent),var(--accent2))}
+  .month-head .mc{font-size:12px;color:var(--muted);background:var(--panel2);
+    border:1px solid var(--line);padding:3px 11px;border-radius:999px;white-space:nowrap}
+  .month-head .line{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+
+  /* ---------- KARTY ---------- */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:15px}
+  .card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 18px 16px;box-shadow:var(--shadow);transition:.16s;display:flex;flex-direction:column;gap:11px;overflow:hidden}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--pc,var(--accent));opacity:.9}
+  .card:hover{border-color:var(--faint);box-shadow:var(--shadow-hover);transform:translateY(-3px)}
+  .card-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .badges{display:flex;gap:6px;flex-wrap:wrap}
+  .badge{font-size:11px;padding:3px 9px;border-radius:8px;font-weight:600;color:#fff;white-space:nowrap}
+  .card .date{margin-left:auto;font-size:11.5px;color:var(--faint);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .card .ct{font-size:16px;font-weight:700;line-height:1.34;margin:0;letter-spacing:-.015em}
+  .card .ct a:hover{color:var(--accent)}
+  .card .desc{color:var(--muted);font-size:13.5px;margin:0;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .sources{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:auto;padding-top:8px;border-top:1px solid var(--line)}
+  .src-label{font-size:11.5px;color:var(--faint);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+  .src{font-size:12px;color:var(--text);border:1px solid var(--line);background:var(--panel2);
+    padding:4px 10px 4px 8px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;transition:.12s;font-weight:600}
+  .src:hover{border-color:var(--accent)}
+  .src .sdot{width:7px;height:7px;border-radius:50%}
+  .multi{font-size:11.5px;color:var(--faint);display:inline-flex;align-items:center;gap:5px}
+
+  /* ---------- STAVY ---------- */
+  .empty{text-align:center;color:var(--muted);padding:76px 20px}
+  .empty .big{font-size:46px;margin-bottom:12px}
+  .skeleton{height:168px;background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);position:relative;overflow:hidden}
+  .skeleton::after{content:"";position:absolute;top:0;left:0;height:100%;width:100%;
+    background:linear-gradient(90deg,transparent,rgba(140,140,160,.13),transparent);
+    transform:translateX(-100%);animation:sh 1.4s infinite}
+  @keyframes sh{100%{transform:translateX(100%)}}
+
+  /* ---------- VÝBER + ODOSLANIE DO MAILERLITE ---------- */
+  .pick{position:absolute;top:14px;right:14px;width:20px;height:20px;accent-color:var(--accent);
+    cursor:pointer;z-index:2}
+  .card.picked{border-color:var(--accent);
+    box-shadow:0 0 0 2px color-mix(in srgb, var(--accent) 55%, transparent), var(--shadow-hover)}
+  .card .card-top{padding-right:26px}
+  .sendbar{position:fixed;left:50%;transform:translateX(-50%);bottom:22px;z-index:90;
+    display:none;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);
+    border-radius:15px;padding:11px 12px 11px 18px;box-shadow:var(--shadow-hover);max-width:calc(100vw - 32px)}
+  .sendbar.on{display:flex}
+  .sendbar .cnt{font-size:14px;font-weight:800}
+  .sendbar .muted{font-size:12px;color:var(--muted)}
+  .send-status{font-size:12px;color:var(--muted);margin-top:2px;min-height:15px}
+  .sendbar button{border:none;cursor:pointer;border-radius:11px;padding:10px 15px;font-size:13.5px;font-weight:700;white-space:nowrap;transition:.14s}
+  .send-go{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 6px 16px rgba(91,108,255,.35)}
+  .send-go:hover{filter:brightness(1.06)}
+  .send-go:disabled{filter:grayscale(.4) brightness(.9);cursor:default}
+  .send-clear{background:var(--panel2);color:var(--text);border:1px solid var(--line)!important}
+  .send-clear:hover{border-color:var(--faint)!important}
+
+  .foot{margin-top:64px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:22px}
+  .foot strong{color:var(--text)}
+  .foot code{background:var(--panel2);border:1px solid var(--line);padding:2px 6px;border-radius:6px;font-size:12px}
+
+  @media (max-width:560px){
+    .cards{grid-template-columns:1fr}
+    .brand .sub{display:none}
+    .toolbar .btn{flex:1}
+    .status{margin-left:0}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-top">
+        <div class="brand">
+          <div class="logo">📡</div>
+          <div>
+            <h1>Marketing Radar</h1>
+            <p class="sub">Praktické novinky a zmeny v nastaveniach reklamných systémov — primárne pre slovenský a český trh (Sklik, Zboží, Heureka, Google Ads, Meta…). Naživo z overených zdrojov, rozdelené podľa platforiem a mesiacov.</p>
+          </div>
+        </div>
+        <button id="themeToggle" class="icon-btn" title="Prepnúť svetlý / tmavý režim">🌙</button>
+      </div>
+
+      <div class="toolbar">
+        <div class="search-wrap">
+          <span class="search-ic">🔍</span>
+          <input id="search" class="search" placeholder="Hľadať v novinkách (napr. Performance Max, Advantage+, targeting)…" />
+        </div>
+        <button id="refresh" class="btn primary">↻ Obnoviť</button>
+      </div>
+
+      <div class="metabar">
+        <div id="stats" class="stats"></div>
+        <div id="status" class="status"><span class="dot"></span><span id="statusText">Pripravené.</span></div>
+      </div>
+    </div>
+  </header>
+
+  <nav id="platformNav" class="pnav"></nav>
+
+  <div id="pageHead" class="page-head"></div>
+
+  <div id="tilesWrap">
+    <div class="flabel">Reklamné platformy — klikni pre podstránku</div>
+    <div id="tiles" class="tiles"></div>
+  </div>
+
+  <div class="filters">
+    <div class="flabel">Filtrovať podľa zdroja</div>
+    <div id="sourceChips" class="chips"></div>
+  </div>
+
+  <div id="content"></div>
+
+  <div class="foot">
+    <p><strong>Ako to funguje:</strong> stránka pri každom otvorení / obnovení sťahuje najnovšie články priamo z RSS kanálov jednotlivých webov, odfiltruje len tie o reklamných platformách, rozdelí ich podľa platforiem (podstránky hore) a mesiacov, a rovnakú novinku z viacerých webov zoskupí pod jednu položku. Zdroj je uvedený priamo pri každej novinke.</p>
+    <p>Zdroje — 🇨🇿🇸🇰 SK/CZ: MediaGuru, Marketingové noviny, Ecommerce Bridge, Digichef, Sklik / Seznam blog; 🌍 globálne: PPC Land, Search Engine Journal, Search Engine Land, Search Engine Roundtable, Meta Newsroom, Social Media Today, HubSpot. Zoznam zdrojov a kľúčových slov upravíš v súbore <code>index.html</code> (sekcia <code>SOURCES</code> / <code>PLATFORMS</code>).</p>
+  </div>
+</div>
+
+<div id="sendbar" class="sendbar">
+  <div>
+    <span class="cnt"><span id="sendCount">0</span> vybraných noviniek</span>
+    <span class="muted">— pošlú sa do MailerLite ako koncept kampane</span>
+    <div id="sendStatus" class="send-status"></div>
+  </div>
+  <button class="send-clear" id="sendClear">Zrušiť výber</button>
+  <button class="send-go" id="sendGo">✉️ Odoslať do MailerLite</button>
+</div>
+
+<script>
+/* ============================================================
+   KONFIGURÁCIA — zdroje (weby) a reklamné platformy (podstránky)
+   ============================================================ */
+const SOURCES = [
+  // ——— Primárne: slovenský a český trh ———
+  { name:'MediaGuru',                short:'MG',    region:'cz', color:'#e11d48', feeds:['https://www.mediaguru.cz/rss/'] },
+  { name:'Marketingové noviny',      short:'MN',    region:'cz', color:'#0ea5e9', feeds:['https://www.marketingovenoviny.cz/rss/'] },
+  { name:'Ecommerce Bridge',         short:'EB',    region:'cz', color:'#f59e0b', feeds:['https://www.ecommercebridge.cz/feed/'] },
+  { name:'Digichef',                 short:'DCH',   region:'cz', color:'#8b5cf6', feeds:['https://www.digichef.cz/feed/'] },
+  { name:'Sklik / Seznam',           short:'SKLIK', region:'cz', color:'#cc0000', feeds:['https://blog.seznam.cz/feed/'] },
+  // ——— Globálne zdroje o reklamných systémoch (Google Ads, Meta, Microsoft…) ———
+  { name:'PPC Land',                 short:'PPCL',  region:'world', color:'#00b894', feeds:['https://ppc.land/rss/'] },
+  { name:'Search Engine Journal',    short:'SEJ',   region:'world', color:'#e8462d', feeds:['https://www.searchenginejournal.com/feed/'] },
+  { name:'Search Engine Land',       short:'SEL',   region:'world', color:'#2d6fe8', feeds:['https://searchengineland.com/feed/'] },
+  { name:'Search Engine Roundtable', short:'SER',   region:'world', color:'#7c3aed', feeds:['https://www.seroundtable.com/index.rdf'] },
+  { name:'Meta Newsroom',            short:'META',  region:'world', color:'#0866FF', feeds:['https://about.fb.com/news/feed/'] },
+  { name:'Social Media Today',       short:'SMT',   region:'world', color:'#12b3a8', feeds:['https://www.socialmediatoday.com/feeds/news/'] },
+  { name:'HubSpot',                  short:'HUB',   region:'world', color:'#ff7a59', feeds:['https://blog.hubspot.com/marketing/rss.xml'] },
+  // Apify scraper — bez RSS (feeds:[]); dáta sa ťahajú zo serverovej funkcie /api/apify (funguje po nasadení online)
+  { name:'Apify (scraper)',          short:'APIFY', region:'cz',    color:'#ff9012', feeds:[] },
+];
+
+// Reklamné platformy = podstránky. Detegujú sa podľa kľúčových slov v titulku/popise.
+const PLATFORMS = [
+  { name:'Google Ads',    color:'#4285F4', domain:'ads.google.com',        kw:['google ads','google advertising','performance max','pmax','p-max','demand gen','google merchant','google shopping','google nákupy','google nakupy','reklama na google','reklamy na google','responsive search','rsa'] },
+  { name:'Meta',          color:'#0866FF', domain:'meta.com',              kw:['meta ads','meta advantage','meta platforms','meta business','meta for business','advantage+','advantage plus','facebook ads','instagram ads','facebook advertising','instagram advertising','reels ads','facebook','instagram','threads'] },
+  { name:'Sklik',         color:'#cc0000', domain:'sklik.cz',              kw:['sklik'] },
+  { name:'Microsoft Ads', color:'#00A4EF', domain:'ads.microsoft.com',     kw:['microsoft ads','microsoft advertising','bing ads','bing','microsoft audience'] },
+  { name:'Heureka',       color:'#e30613', domain:'heureka.cz',            kw:['heureka'] },
+  { name:'Zboží.cz',      color:'#d81e05', domain:'zbozi.cz',              kw:['zboží.cz','zbozi.cz'] },
+  { name:'TikTok',        color:'#ff0050', domain:'tiktok.com',            kw:['tiktok','tik tok'] },
+  { name:'Google Search', color:'#34A853', domain:'google.com',            kw:['google search','google core update','search console','google algorithm','serp','google ai overview','ai overviews','sge'] },
+  { name:'YouTube',       color:'#FF0000', domain:'youtube.com',           kw:['youtube ads','youtube advertising','youtube shorts','youtube'] },
+  { name:'LinkedIn Ads',  color:'#0A66C2', domain:'linkedin.com',          kw:['linkedin ads','linkedin advertising','linkedin campaign'] },
+  { name:'Amazon Ads',    color:'#FF9900', domain:'advertising.amazon.com',kw:['amazon ads','amazon advertising','amazon dsp'] },
+  { name:'Pinterest',     color:'#E60023', domain:'pinterest.com',         kw:['pinterest ads','pinterest advertising'] },
+];
+
+// Slová signalizujúce "zmenu / novinku / aktualizáciu" pre režim "Len zmeny"
+const CHANGE_KW = ['launch','launches','rolls out','rolling out','introduc','announc','new ','update','updates','updated','adds ','now ','feature','features','change','changes','expand','test','beta','release','rollout','unveil','brings','enable','deprecat','sunset','shutting down','discontinu','setting','settings','interface','dashboard','panel','api','option',
+  'novink','zmen','aktualiz','spúšťa','spouš','predstav','představ','uvádz','uvád','nastaven','rozhran','funkc','nově','pridáv','přidáv','umožň','vylepš','rozšir','rozšíř','integr','nov'];
+
+const MONTHS_SK = ['Január','Február','Marec','Apríl','Máj','Jún','Júl','August','September','Október','November','December'];
+
+/* ============================================================
+   STAV
+   ============================================================ */
+let ALL = [];                 // všetky načítané položky
+let CLUSTERS = [];            // zoskupené (dedup) položky
+let currentPlatform = '';     // '' = Prehľad, inak názov platformy (podstránka)
+const activeSources = new Set();
+let onlyChanges = true;   // primárne zobraz praktické zmeny/nastavenia reklamných systémov
+let onlyLocal = false;    // voliteľné zúženie len na SK/CZ zdroje
+let searchTerm = '';
+const selected = new Set();   // ručne označené (relevantné) novinky — kľúč = odkaz clustra
+
+function slugify(s){
+  return s.toLowerCase().replace(/\+/g,'plus').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+function newsWord(n){ return n===1 ? 'novinka' : (n<5 ? 'novinky' : 'noviniek'); }
+
+/* ============================================================
+   TÉMA (svetlá / tmavá)
+   ============================================================ */
+const THEME_KEY = 'mr-theme';
+function prefersDark(){ return window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches; }
+function applyTheme(t){
+  const root = document.documentElement;
+  if(t) root.setAttribute('data-theme', t); else root.removeAttribute('data-theme');
+  const isDark = t ? t === 'dark' : prefersDark();
+  document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
+}
+(function initTheme(){
+  let saved = '';
+  try{ saved = localStorage.getItem(THEME_KEY) || ''; }catch(e){}
+  applyTheme(saved);
+})();
+
+/* ============================================================
+   SŤAHOVANIE
+   Poradie: 1) vlastný serverový endpoint /api/feed (keď je web nasadený
+   online — najspoľahlivejšie, žiadne verejné proxy), potom záložné
+   verejné CORS proxy (aby to fungovalo aj pri lokálnom otvorení súboru).
+   mode 'json' = odpoveď je JSON s poľom "contents" (allorigins), inak text.
+   ============================================================ */
+const PROXIES = [
+  { mode:'raw',  url: u => `/api/feed?url=${encodeURIComponent(u)}` },
+  { mode:'raw',  url: u => `https://api.cors.lol/?url=${encodeURIComponent(u)}` },
+  { mode:'raw',  url: u => `https://proxy.cors.sh/${u}` },
+  { mode:'json', url: u => `https://api.allorigins.win/get?url=${encodeURIComponent(u)}` },
+  { mode:'raw',  url: u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}` },
+  { mode:'raw',  url: u => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(u)}` },
+  { mode:'raw',  url: u => `https://corsproxy.io/?url=${encodeURIComponent(u)}` },
+];
+
+// allorigins niekedy vráti obsah ako data: URL (často base64) — rozbalíme ho späť na text.
+function decodeContents(c){
+  if(!c) return '';
+  if(c.startsWith('data:')){
+    const comma = c.indexOf(',');
+    const meta = c.slice(5, comma);
+    let data = c.slice(comma + 1);
+    try{
+      if(/;base64/i.test(meta)){
+        data = decodeURIComponent(escape(atob(data)));   // korektne aj pre UTF-8
+      }else{
+        data = decodeURIComponent(data);
+      }
+    }catch(e){ try{ data = atob(c.slice(comma + 1)); }catch(_){} }
+    return data;
+  }
+  return c;
+}
+
+async function fetchText(url){
+  for(const proxy of PROXIES){
+    try{
+      const res = await fetch(proxy.url(url), {cache:'no-store'});
+      if(!res.ok) continue;
+      let t;
+      if(proxy.mode === 'json'){
+        const j = await res.json();
+        t = decodeContents(j && j.contents);
+      }else{
+        t = await res.text();
+      }
+      if(t && t.length > 120 && t.indexOf('<') !== -1) return t;
+    }catch(e){ /* skús ďalšiu proxy */ }
+  }
+  return null;
+}
+
+// Stiahne výsledky z Apify (cez serverovú funkciu /api/apify). Ak nie je nasadené/nakonfigurované,
+// funkcia ticho vráti prázdno a appka funguje ďalej len s RSS.
+async function fetchApify(){
+  const src = SOURCES.find(s => s.short === 'APIFY');
+  try{
+    const res = await fetch('/api/apify', {cache:'no-store'});
+    if(!res.ok) return [];
+    const data = await res.json();
+    if(!Array.isArray(data)) return [];
+    return data.map(d => ({
+      title: (d.title || d.name || '').replace(/\s+/g,' ').trim(),
+      link:  d.url || d.link || '',
+      date:  d.date ? new Date(d.date) : null,
+      desc:  (d.description || d.text || d.summary || '').replace(/\s+/g,' ').trim().slice(0,500),
+      source: src
+    })).filter(x => x.title && x.link);
+  }catch(e){ return []; }
+}
+
+/* ============================================================
+   PARSOVANIE RSS / Atom / RDF
+   ============================================================ */
+function textOf(el, sel){
+  if(!el) return '';
+  const n = el.querySelector(sel);
+  return n ? n.textContent.trim() : '';
+}
+function stripHtml(html){
+  const d = document.createElement('div');
+  d.innerHTML = html || '';
+  return (d.textContent || '').replace(/\s+/g,' ').trim();
+}
+function parseDate(s){
+  if(!s) return null;
+  const d = new Date(s);
+  return isNaN(d) ? null : d;
+}
+
+function parseFeed(xml, source){
+  const out = [];
+  let doc;
+  try{ doc = new DOMParser().parseFromString(xml, 'text/xml'); }catch(e){ return out; }
+  if(doc.querySelector('parsererror')){
+    // niektoré feedy prídu s BOM/prefixom — skús orezať po prvé '<'
+    const i = xml.indexOf('<');
+    if(i > 0){ try{ doc = new DOMParser().parseFromString(xml.slice(i),'text/xml'); }catch(e){} }
+  }
+  let items = Array.from(doc.querySelectorAll('item'));
+  const isAtom = items.length === 0;
+  if(isAtom) items = Array.from(doc.querySelectorAll('entry'));
+
+  for(const it of items){
+    const title = textOf(it,'title');
+    if(!title) continue;
+
+    // odkaz
+    let link = textOf(it,'link');
+    if(!link){
+      const la = it.querySelector('link[href]');
+      if(la) link = la.getAttribute('href');
+    }
+    if(!link) link = textOf(it,'guid');
+
+    // dátum (rôzne formáty)
+    const dateStr = textOf(it,'pubDate') || textOf(it,'published') || textOf(it,'updated')
+      || textOf(it,'date') || it.getElementsByTagName('dc:date')[0]?.textContent || '';
+    const date = parseDate(dateStr);
+
+    // popis
+    let desc = textOf(it,'description') || textOf(it,'summary')
+      || it.getElementsByTagName('content:encoded')[0]?.textContent
+      || textOf(it,'content') || '';
+    desc = stripHtml(desc);
+
+    out.push({ title: stripHtml(title), link, date, desc, source });
+  }
+  return out;
+}
+
+/* ============================================================
+   FILTER podľa reklamných platforiem (téma) + detekcia
+   ============================================================ */
+function detectPlatforms(item){
+  const hay = (item.title + ' ' + item.desc).toLowerCase();
+  const found = [];
+  for(const p of PLATFORMS){
+    if(p.kw.some(k => hay.includes(k))) found.push(p.name);
+  }
+  return found;
+}
+
+/* ============================================================
+   DEDUPLIKÁCIA — zoskupenie rovnakej novinky z rôznych webov
+   ============================================================ */
+const STOP = new Set(['the','a','an','of','to','in','on','for','and','with','is','are','as','how','why','what','new','ads','ad','google','meta','you','your','from','now','will','can','it','its','has','have','this','that','de','na','sa','je','v','o','za','pre','sa']);
+function tokens(title){
+  return (title.toLowerCase().match(/[a-z0-9á-ž]+/gi) || [])
+    .filter(w => w.length > 2 && !STOP.has(w));
+}
+function jaccard(a, b){
+  const A = new Set(a), B = new Set(b);
+  if(!A.size || !B.size) return 0;
+  let inter = 0;
+  for(const x of A) if(B.has(x)) inter++;
+  return inter / (A.size + B.size - inter);
+}
+
+function clusterize(items){
+  // zoradiť od najnovších
+  items.sort((x,y) => (y.date?.getTime()||0) - (x.date?.getTime()||0));
+  const clusters = [];
+  for(const it of items){
+    it._tok = tokens(it.title);
+    let placed = false;
+    for(const c of clusters){
+      // rovnaké novinky bývajú v podobnom čase — porovnávaj len blízke dátumy
+      const closeInTime = c.date && it.date
+        ? Math.abs(c.date - it.date) < 1000*60*60*24*10 : true;
+      if(closeInTime && jaccard(it._tok, c._tok) >= 0.55){
+        c.items.push(it);
+        c.platforms = Array.from(new Set([...c.platforms, ...it._platforms]));
+        placed = true;
+        break;
+      }
+    }
+    if(!placed){
+      clusters.push({
+        title: it.title, link: it.link, date: it.date, desc: it.desc,
+        _tok: it._tok, platforms: it._platforms.slice(), items:[it]
+      });
+    }
+  }
+  return clusters;
+}
+
+/* ============================================================
+   NAČÍTANIE VŠETKÉHO
+   ============================================================ */
+function setStatus(text, loading){
+  const s = document.getElementById('status');
+  s.classList.toggle('loading', !!loading);
+  document.getElementById('statusText').textContent = text;
+}
+function setStats(){
+  const el = document.getElementById('stats');
+  if(!ALL.length){ el.innerHTML = ''; return; }
+  const okSources = new Set(ALL.map(i => i.source.short)).size;
+  el.innerHTML =
+    `<div class="stat"><b>${ALL.length}</b><span>noviniek</span></div>
+     <div class="stat"><b>${CLUSTERS.length}</b><span>tém</span></div>
+     <div class="stat"><b>${okSources}</b><span>zdrojov</span></div>`;
+}
+
+async function loadAll(){
+  setStatus('Sťahujem najnovšie novinky…', true);
+  showSkeleton();
+  const jobs = [];
+  for(const src of SOURCES){
+    for(const feed of src.feeds){
+      jobs.push(
+        fetchText(feed).then(xml => xml ? parseFeed(xml, src) : [])
+          .catch(() => [])
+      );
+    }
+  }
+  jobs.push(fetchApify());   // + výsledky z Apify scrapera (ak je nasadené a nakonfigurované)
+  const results = await Promise.all(jobs);
+  let items = results.flat();
+
+  // detekcia platforiem + filter (nechaj len tie, ktoré sa týkajú našich platforiem)
+  items = items.filter(it => {
+    it._platforms = detectPlatforms(it);
+    return it._platforms.length > 0;
+  });
+
+  // odstráň duplicitné URL
+  const seen = new Set();
+  items = items.filter(it => {
+    const key = (it.link||'').split('?')[0];
+    if(key && seen.has(key)) return false;
+    if(key) seen.add(key);
+    return true;
+  });
+
+  ALL = items;
+  CLUSTERS = clusterize(items);
+
+  // ak platforma z URL už nemá novinky, spadni na Prehľad
+  if(currentPlatform && !CLUSTERS.some(c => c.platforms.includes(currentPlatform))) currentPlatform = '';
+
+  buildNav();
+  buildSourceFilter();
+  renderPageHead();
+  renderTiles();
+  render();
+  setStats();
+
+  const when = new Date().toLocaleTimeString('sk-SK',{hour:'2-digit',minute:'2-digit'});
+  if(items.length === 0){
+    setStatus('Nepodarilo sa načítať novinky — zdroje sú práve nedostupné. Skús o chvíľu znova „Obnoviť“.', false);
+  }else{
+    setStatus(`Aktualizované ${when}`, false);
+  }
+}
+
+/* ============================================================
+   NAVIGÁCIA PLATFORIEM (podstránky) + FILTER ZDROJOV
+   ============================================================ */
+function platformCounts(){
+  const pc = {};
+  CLUSTERS.forEach(c => c.platforms.forEach(p => pc[p] = (pc[p]||0)+1));
+  return pc;
+}
+
+function buildNav(){
+  const pc = platformCounts();
+  const nav = document.getElementById('platformNav');
+  let html = `<a href="#prehlad" class="ptab${currentPlatform===''?' on':''}">📊 Prehľad<span class="n">${CLUSTERS.length}</span></a>`;
+  PLATFORMS.filter(p => pc[p.name]).forEach(p => {
+    const on = currentPlatform === p.name;
+    html += `<a href="#${slugify(p.name)}" class="ptab${on?' on':''}"${on?` style="--tc:${p.color}"`:''}>` +
+            `<span class="swatch" style="background:${p.color}"></span>${p.name}<span class="n">${pc[p.name]}</span></a>`;
+  });
+  nav.innerHTML = html;
+}
+
+function initials(name){
+  const w = name.split(/\s+/).filter(Boolean);
+  return (w.length > 1 ? (w[0][0] + w[1][0]) : name.slice(0,2)).toUpperCase();
+}
+
+function renderTiles(){
+  const wrap = document.getElementById('tilesWrap');
+  const el = document.getElementById('tiles');
+  // dlaždice sú rozcestník — ukáž ich len na Prehľade
+  if(currentPlatform){ wrap.style.display = 'none'; el.innerHTML = ''; return; }
+  const pc = platformCounts();
+  const list = PLATFORMS.filter(p => pc[p.name]);
+  if(!list.length){ wrap.style.display = 'none'; el.innerHTML = ''; return; }
+  wrap.style.display = '';
+  el.innerHTML = list.map(p => {
+    const n = pc[p.name];
+    return `<a class="tile" href="#${slugify(p.name)}" style="--tc:${p.color}" title="Otvoriť podstránku ${p.name}">
+      <span class="tile-arrow">→</span>
+      <div class="tile-ic">
+        <img class="tile-logo" src="https://www.google.com/s2/favicons?domain=${p.domain}&sz=64" alt="${p.name} logo" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='';">
+        <span class="tile-initials" style="display:none">${initials(p.name)}</span>
+      </div>
+      <div class="tile-name">${p.name}</div>
+      <div class="tile-meta"><span class="tile-count">${n}</span><span class="tile-sub">${newsWord(n)}</span></div>
+    </a>`;
+  }).join('');
+}
+
+function buildSourceFilter(){
+  const sCount = {};
+  CLUSTERS.forEach(c => new Set(c.items.map(i=>i.source.short)).forEach(s => sCount[s]=(sCount[s]||0)+1));
+  const sc = document.getElementById('sourceChips');
+  sc.innerHTML = '';
+  SOURCES.filter(s => sCount[s.short]).forEach(s => {
+    const el = document.createElement('div');
+    el.className = 'chip' + (activeSources.has(s.short) ? ' on':'');
+    if(activeSources.has(s.short)) el.style.background = s.color;
+    const flag = s.region === 'cz' ? '🇨🇿' : (s.region === 'sk' ? '🇸🇰' : '🌍');
+    el.innerHTML = `<span class="swatch" style="background:${s.color}"></span>${flag} ${s.name}<span class="cnt">${sCount[s.short]}</span>`;
+    el.onclick = () => {
+      activeSources.has(s.short) ? activeSources.delete(s.short) : activeSources.add(s.short);
+      buildSourceFilter(); render();
+    };
+    sc.appendChild(el);
+  });
+}
+
+/* ============================================================
+   ROUTING — každá platforma je vlastná podstránka (#slug)
+   ============================================================ */
+function parseHash(){
+  const h = decodeURIComponent((location.hash || '').replace(/^#/,''));
+  if(!h || h === 'prehlad') return '';
+  const p = PLATFORMS.find(x => slugify(x.name) === h);
+  return p ? p.name : '';
+}
+function applyRoute(){
+  currentPlatform = parseHash();
+  buildNav();
+  renderPageHead();
+  renderTiles();
+  render();
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+window.addEventListener('hashchange', applyRoute);
+
+/* ============================================================
+   VYKRESLENIE — hlavička podstránky + novinky podľa mesiacov
+   ============================================================ */
+function renderPageHead(){
+  const el = document.getElementById('pageHead');
+  if(!currentPlatform){
+    el.innerHTML =
+      `<h2 class="ph-title">📊 Prehľad všetkých platforiem</h2>
+       <p class="ph-sub">Najnovšie novinky a zmeny zo všetkých sledovaných reklamných platforiem, rozdelené podľa mesiacov. Hore si vyber konkrétnu platformu pre jej samostatnú podstránku.</p>`;
+    return;
+  }
+  const p = PLATFORMS.find(x => x.name === currentPlatform);
+  const cnt = CLUSTERS.filter(c => c.platforms.includes(currentPlatform)).length;
+  el.innerHTML =
+    `<div class="ph-badge" style="background:${p.color}">Platforma</div>
+     <h2 class="ph-title">${currentPlatform}</h2>
+     <p class="ph-sub">${cnt} ${newsWord(cnt)} k platforme ${currentPlatform}, rozdelené podľa mesiacov. Zdroj je uvedený priamo pri každej novinke.</p>`;
+}
+
+function matchesFilters(c){
+  if(currentPlatform && !c.platforms.includes(currentPlatform)) return false;
+  if(onlyLocal && !c.items.some(i => i.source.region === 'cz' || i.source.region === 'sk')) return false;
+  if(activeSources.size && !c.items.some(i => activeSources.has(i.source.short))) return false;
+  if(onlyChanges){
+    const hay = (c.title + ' ' + c.desc).toLowerCase();
+    if(!CHANGE_KW.some(k => hay.includes(k))) return false;
+  }
+  if(searchTerm){
+    const hay = (c.title + ' ' + c.desc).toLowerCase();
+    if(!hay.includes(searchTerm)) return false;
+  }
+  return true;
+}
+
+function monthKey(d){ return d ? `${d.getFullYear()}-${String(d.getMonth()).padStart(2,'0')}` : 'x-neznamy'; }
+function monthLabel(key){
+  if(key === 'x-neznamy') return 'Bez dátumu';
+  const [y,m] = key.split('-');
+  return `${MONTHS_SK[+m]} ${y}`;
+}
+
+function render(){
+  const root = document.getElementById('content');
+  const visible = CLUSTERS.filter(matchesFilters);
+
+  if(!visible.length){
+    root.innerHTML = `<div class="empty"><div class="big">🔍</div>
+      ${ALL.length ? 'Žiadne novinky nezodpovedajú zvolenej platforme či filtrom.' : 'Zatiaľ žiadne dáta — klikni na „Obnoviť“.'}</div>`;
+    return;
+  }
+
+  // zoskup podľa mesiacov
+  const byMonth = {};
+  for(const c of visible){
+    const k = monthKey(c.date);
+    (byMonth[k] = byMonth[k] || []).push(c);
+  }
+  const keys = Object.keys(byMonth).sort((a,b)=>{  // najnovší mesiac hore, "Bez dátumu" úplne dole
+    if(a === 'x-neznamy') return 1;
+    if(b === 'x-neznamy') return -1;
+    return a < b ? 1 : -1;
+  });
+
+  let html = '';
+  for(const k of keys){
+    const list = byMonth[k];
+    html += `<section class="month">
+      <div class="month-head"><h2>${monthLabel(k)}</h2><span class="mc">${list.length} ${newsWord(list.length)}</span><span class="line"></span></div>
+      <div class="cards">`;
+    for(const c of list) html += cardHtml(c);
+    html += `</div></section>`;
+  }
+  root.innerHTML = html;
+}
+
+function cardHtml(c){
+  const platBadges = c.platforms.map(pn => {
+    const p = PLATFORMS.find(x=>x.name===pn);
+    return `<span class="badge" style="background:${p?p.color:'#666'}">${pn}</span>`;
+  }).join('');
+  // farba ľavého prúžku podľa hlavnej platformy (na podstránke podľa jej platformy)
+  const primaryName = (currentPlatform && c.platforms.includes(currentPlatform)) ? currentPlatform : c.platforms[0];
+  const primary = PLATFORMS.find(x => x.name === primaryName);
+  const pc = primary ? primary.color : 'var(--accent)';
+
+  // jedinečné zdroje v clustri, každý s odkazom na svoj článok
+  const bySrc = {};
+  c.items.forEach(i => { if(!bySrc[i.source.short]) bySrc[i.source.short] = i; });
+  const srcList = Object.values(bySrc);
+  const srcBadges = srcList.map(i =>
+    `<a class="src" href="${i.link}" target="_blank" rel="noopener" title="Otvoriť článok na ${i.source.name}">
+       <span class="sdot" style="background:${i.source.color}"></span>${i.source.name}</a>`
+  ).join('');
+
+  const dateTxt = c.date
+    ? c.date.toLocaleDateString('sk-SK',{day:'numeric',month:'short',year:'numeric'})
+    : 'Bez dátumu';
+  const multi = srcList.length > 1
+    ? `<span class="multi">↔ tú istú novinku priniesli ${srcList.length} zdroje</span>`
+    : '';
+
+  const key = c.link || c.title;
+  const sel = selected.has(key);
+  return `<article class="card${sel ? ' picked' : ''}" style="--pc:${pc}">
+    <input type="checkbox" class="pick" data-id="${escapeHtml(key)}"${sel ? ' checked' : ''} title="Označiť ako relevantné (na odoslanie do MailerLite)">
+    <div class="card-top"><div class="badges">${platBadges}</div><span class="date">${dateTxt}</span></div>
+    <h3 class="ct"><a href="${c.link}" target="_blank" rel="noopener">${escapeHtml(c.title)}</a></h3>
+    ${c.desc ? `<p class="desc">${escapeHtml(c.desc)}</p>`:''}
+    <div class="sources"><span class="src-label">Zdroj:</span>${srcBadges}${multi}</div>
+  </article>`;
+}
+
+function escapeHtml(s){
+  return (s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+}
+function showSkeleton(){
+  document.getElementById('content').innerHTML =
+    '<div class="cards">' + Array(6).fill('<div class="skeleton"></div>').join('') + '</div>';
+}
+
+/* ============================================================
+   UDALOSTI
+   ============================================================ */
+document.getElementById('refresh').onclick = loadAll;
+document.getElementById('themeToggle').onclick = () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const isDark = cur ? cur === 'dark' : prefersDark();
+  const next = isDark ? 'light' : 'dark';
+  try{ localStorage.setItem(THEME_KEY, next); }catch(e){}
+  applyTheme(next);
+};
+let searchTimer;
+document.getElementById('search').oninput = (e) => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => { searchTerm = e.target.value.trim().toLowerCase(); render(); }, 200);
+};
+
+/* ---------- VÝBER NOVINIEK + ODOSLANIE DO MAILERLITE ---------- */
+function renderSelectionBar(){
+  document.getElementById('sendCount').textContent = selected.size;
+  document.getElementById('sendbar').classList.toggle('on', selected.size > 0);
+}
+function setSendStatus(t){ document.getElementById('sendStatus').textContent = t || ''; }
+
+// zaškrtávanie kariet (delegovane, funguje aj po prekreslení)
+document.getElementById('content').addEventListener('change', (e) => {
+  const cb = e.target.closest('.pick');
+  if(!cb) return;
+  const id = cb.getAttribute('data-id');
+  if(cb.checked) selected.add(id); else selected.delete(id);
+  const card = cb.closest('.card');
+  if(card) card.classList.toggle('picked', cb.checked);
+  setSendStatus('');
+  renderSelectionBar();
+});
+
+document.getElementById('sendClear').onclick = () => {
+  selected.clear(); setSendStatus(''); render(); renderSelectionBar();
+};
+
+async function sendToMailerLite(){
+  const items = CLUSTERS
+    .filter(c => selected.has(c.link || c.title))
+    .map(c => ({
+      title: c.title,
+      link: c.link,
+      date: c.date ? c.date.toISOString() : null,
+      desc: c.desc || '',
+      platforms: c.platforms,
+      sources: [...new Set(c.items.map(i => i.source.name))]
+    }));
+  if(!items.length) return;
+  if(!confirm(`Vytvoriť v MailerLite koncept kampane z ${items.length} vybraných noviniek?`)) return;
+
+  const go = document.getElementById('sendGo');
+  go.disabled = true;
+  setSendStatus('Odosielam do MailerLite…');
+  try{
+    const res = await fetch('/api/mailerlite', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items })
+    });
+    const out = await res.json().catch(() => ({}));
+    if(res.ok){
+      setSendStatus(out.sent ? '✅ Kampaň bola odoslaná cez MailerLite.' : '✅ Hotovo — koncept kampane je pripravený v MailerLite.');
+      selected.clear();
+      render(); renderSelectionBar();
+      setTimeout(() => { document.getElementById('sendbar').classList.remove('on'); }, 4000);
+    }else{
+      setSendStatus('⚠️ ' + (out.error || ('Chyba ' + res.status)));
+    }
+  }catch(e){
+    setSendStatus('⚠️ Nedostupné /api/mailerlite — funguje až po nasadení online (viď NAPOJENIE.md).');
+  }finally{
+    go.disabled = false;
+  }
+}
+document.getElementById('sendGo').onclick = sendToMailerLite;
+
+// štart
+currentPlatform = parseHash();
+loadAll();
+</script>
+</body>
+</html>

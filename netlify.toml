@@ -1,0 +1,27 @@
+# Konfigurácia pre nasadenie na Netlify
+# ---------------------------------------------------
+# Statický web sa publikuje z tohto priečinka a serverless
+# funkcia z netlify/functions. Netlify Node runtime má fetch zabudovaný.
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Pekné adresy /api/... namiesto /.netlify/functions/...
+[[redirects]]
+  from = "/api/feed"
+  to = "/.netlify/functions/feed"
+  status = 200
+
+[[redirects]]
+  from = "/api/apify"
+  to = "/.netlify/functions/apify"
+  status = 200
+
+[[redirects]]
+  from = "/api/mailerlite"
+  to = "/.netlify/functions/mailerlite"
+  status = 200
+
+[functions]
+  node_bundler = "esbuild"
