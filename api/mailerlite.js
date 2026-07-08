@@ -1,8 +1,9 @@
-// Serverless funkcia: z vybraných noviniek vytvorí v MailerLite kampaň.
-// Volanie z appky:  POST /api/mailerlite   (presmerovanie v netlify.toml), telo: { items: [...] }
+// Vercel serverless funkcia: z vybraných noviniek vytvorí v MailerLite kampaň.
+// Vercel ju automaticky sprístupní na /api/mailerlite.
+// Volanie z appky:  POST /api/mailerlite   telo: { items: [...] }
 //
-// Nastav v Netlify (Site settings -> Environment variables):
-//   MAILERLITE_API_KEY     = API kľúč z MailerLite (Integrations -> API)
+// Nastav v Vercel (Project → Settings → Environment Variables):
+//   MAILERLITE_API_KEY     = API kľúč z MailerLite (Integrations → API)
 //   MAILERLITE_FROM_EMAIL  = overená odosielateľská e-mailová adresa v MailerLite
 //   MAILERLITE_FROM_NAME   = (voliteľné) meno odosielateľa, napr. "Marketing Radar"
 //   MAILERLITE_GROUP_ID    = (voliteľné) id skupiny príjemcov (potrebné pri auto-odoslaní)
@@ -18,14 +19,6 @@ const GROUP = process.env.MAILERLITE_GROUP_ID;
 const AUTOSEND = String(process.env.MAILERLITE_AUTOSEND).toLowerCase() === 'true';
 
 const BASE = 'https://connect.mailerlite.com/api';
-
-function resp(statusCode, body) {
-  return {
-    statusCode,
-    headers: { 'Content-Type': 'application/json; charset=utf-8' },
-    body: JSON.stringify(body),
-  };
-}
 
 function esc(s) {
   return String(s || '').replace(/[&<>"]/g, (c) =>
@@ -75,20 +68,27 @@ function buildHtml(items) {
   </body></html>`;
 }
 
-exports.handler = async (event) => {
-  if (event.httpMethod !== 'POST') return resp(405, { error: 'Použi metódu POST.' });
+module.exports = async (req, res) => {
+  if (req.method !== 'POST') {
+    res.status(405).json({ error: 'Použi metódu POST.' });
+    return;
+  }
   if (!KEY || !FROM) {
-    return resp(500, { error: 'Chýba MAILERLITE_API_KEY alebo MAILERLITE_FROM_EMAIL v premenných prostredia.' });
+    res.status(500).json({ error: 'Chýba MAILERLITE_API_KEY alebo MAILERLITE_FROM_EMAIL v premenných prostredia.' });
+    return;
   }
 
   let items;
   try {
-    items = JSON.parse(event.body || '{}').items;
+    const b = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
+    items = b.items;
   } catch (e) {
-    return resp(400, { error: 'Neplatné dáta v požiadavke.' });
+    res.status(400).json({ error: 'Neplatné dáta v požiadavke.' });
+    return;
   }
   if (!Array.isArray(items) || items.length === 0) {
-    return resp(400, { error: 'Neboli vybrané žiadne novinky.' });
+    res.status(400).json({ error: 'Neboli vybrané žiadne novinky.' });
+    return;
   }
 
   const subject = `Marketing Radar — ${items.length} vybraných noviniek (${new Date().toLocaleDateString('sk-SK')})`;
@@ -110,24 +110,27 @@ exports.handler = async (event) => {
     const cRes = await fetch(`${BASE}/campaigns`, { method: 'POST', headers, body: JSON.stringify(body) });
     const cData = await cRes.json().catch(() => ({}));
     if (!cRes.ok) {
-      return resp(cRes.status, { error: 'MailerLite: ' + (cData.message || JSON.stringify(cData.errors || cData) || cRes.status) });
+      res.status(cRes.status).json({ error: 'MailerLite: ' + (cData.message || JSON.stringify(cData.errors || cData) || cRes.status) });
+      return;
     }
     const id = cData.data && cData.data.id;
 
-    // 2) voliteľne rovno odošli (len ak je zapnuté aj cieľová skupina)
+    // 2) voliteľne rovno odošli (len ak je zapnutá aj cieľová skupina)
     if (AUTOSEND && id && GROUP) {
       const sRes = await fetch(`${BASE}/campaigns/${id}/schedule`, {
         method: 'POST', headers, body: JSON.stringify({ delivery: 'instant' }),
       });
       const sData = await sRes.json().catch(() => ({}));
       if (!sRes.ok) {
-        return resp(200, { ok: true, draft: true, id, warning: 'Koncept vytvorený, odoslanie zlyhalo: ' + (sData.message || sRes.status) });
+        res.status(200).json({ ok: true, draft: true, id, warning: 'Koncept vytvorený, odoslanie zlyhalo: ' + (sData.message || sRes.status) });
+        return;
       }
-      return resp(200, { ok: true, sent: true, id });
+      res.status(200).json({ ok: true, sent: true, id });
+      return;
     }
 
-    return resp(200, { ok: true, draft: true, id });
+    res.status(200).json({ ok: true, draft: true, id });
   } catch (e) {
-    return resp(502, { error: 'Chyba pri komunikácii s MailerLite: ' + e.message });
+    res.status(502).json({ error: 'Chyba pri komunikácii s MailerLite: ' + e.message });
   }
 };

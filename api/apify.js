@@ -1,8 +1,8 @@
-// Serverless funkcia: načíta výsledky scrapovania z Apify a vráti ich appke.
-// Volanie z appky:  /api/apify   (presmerovanie nastavené v netlify.toml)
+// Vercel serverless funkcia: načíta výsledky scrapovania z Apify a vráti ich appke.
+// Vercel ju automaticky sprístupní na /api/apify.
 //
-// Nastav v Netlify (Site settings -> Environment variables):
-//   APIFY_TOKEN      = tvoj API token z Apify (Settings -> Integrations)
+// Nastav v Vercel (Project → Settings → Environment Variables):
+//   APIFY_TOKEN      = tvoj API token z Apify (Settings → Integrations)
 //   APIFY_ACTOR_ID   = id aktéra v tvare "username~actor-name" (napr. "apify~rss-scraper")
 //
 // Funkcia číta dataset z POSLEDNÉHO ÚSPEŠNÉHO behu daného aktéra. Odporúčaný postup:
@@ -11,18 +11,6 @@
 
 const TOKEN = process.env.APIFY_TOKEN;
 const ACTOR = process.env.APIFY_ACTOR_ID;
-
-function json(statusCode, body, maxAge) {
-  return {
-    statusCode,
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'Access-Control-Allow-Origin': '*',
-      'Cache-Control': `public, max-age=${maxAge || 600}`,
-    },
-    body: JSON.stringify(body),
-  };
-}
 
 // Z ľubovoľného objektu z datasetu vytiahne titulok / odkaz / dátum / popis.
 function normalize(d) {
@@ -40,24 +28,37 @@ function normalize(d) {
   };
 }
 
-exports.handler = async () => {
+module.exports = async (req, res) => {
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Cache-Control', 'public, max-age=600');
+
   // ak nie je nič nakonfigurované, vráť prázdno — appka pokojne beží ďalej len s RSS
-  if (!TOKEN || !ACTOR) return json(200, []);
+  if (!TOKEN || !ACTOR) {
+    res.status(200).json([]);
+    return;
+  }
 
   try {
     const url =
       `https://api.apify.com/v2/acts/${encodeURIComponent(ACTOR)}/runs/last/dataset/items` +
       `?token=${TOKEN}&status=SUCCEEDED&clean=true&format=json`;
 
-    const res = await fetch(url, { headers: { Accept: 'application/json' } });
-    if (!res.ok) return json(200, []);
+    const r = await fetch(url, { headers: { Accept: 'application/json' } });
+    if (!r.ok) {
+      res.status(200).json([]);
+      return;
+    }
 
-    const data = await res.json();
-    if (!Array.isArray(data)) return json(200, []);
+    const data = await r.json();
+    if (!Array.isArray(data)) {
+      res.status(200).json([]);
+      return;
+    }
 
     const items = data.map(normalize).filter((x) => x.title && x.url);
-    return json(200, items);
+    res.status(200).json(items);
   } catch (e) {
-    return json(200, []);
+    res.status(200).json([]);
   }
 };

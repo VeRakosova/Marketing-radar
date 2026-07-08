@@ -1,23 +1,23 @@
-# 🔌 Napojenie Apify a MailerLite
+# 🔌 Napojenie Apify a MailerLite (na Vercel)
 
-Tieto dve funkcie bežia **na serveri** — fungujú až **po nasadení online** (Netlify) a potrebujú tvoje
-API kľúče. Kľúče sa zadávajú ako **premenné prostredia v Netlify**, nikdy nie do kódu a nikam do chatu.
+Tieto dve funkcie bežia **na serveri** — fungujú až **po nasadení online** (Vercel) a potrebujú tvoje
+API kľúče. Kľúče sa zadávajú ako **premenné prostredia vo Vercel**, nikdy nie do kódu a nikam do chatu.
 
-> Nasadenie appky: pozri `NASADENIE.md`. Po nasadení otvor v Netlify **Site settings → Environment variables**
-> a pridaj premenné nižšie. Po pridaní/zmene premenných daj **Deploys → Trigger deploy → Deploy site**.
+> Nasadenie appky: pozri `NASADENIE.md`. Premenné pridáš v **Project → Settings → Environment Variables**.
+> Po pridaní/zmene premenných daj **Deployments → … → Redeploy** (aby sa načítali).
 
 ---
 
 ## 1) Apify (scrapovanie webov bez RSS)
 
 Apify spustí „aktéra" (scraper), ktorý stiahne novinky z webu, čo nemá RSS. Naša funkcia
-[`netlify/functions/apify.js`](netlify/functions/apify.js) prečíta výsledky **posledného úspešného behu** aktéra.
+[`api/apify.js`](api/apify.js) prečíta výsledky **posledného úspešného behu** aktéra.
 
 **Postup:**
 1. Vytvor si účet na [apify.com](https://apify.com).
-2. Vyber alebo vytvor aktéra, ktorý scrapuje požadovaný web (napr. **Web Scraper**, **Website Content Crawler**, alebo **RSS/Website scraper**). Nastav mu, čo má sťahovať (URL, výber článkov).
+2. Vyber alebo vytvor aktéra, ktorý scrapuje požadovaný web (napr. **Web Scraper**, **Website Content Crawler**). Nastav mu, čo má sťahovať (URL, výber článkov).
 3. Aktéra **naplánuj** (Schedules) napr. každú hodinu — tým sa výsledky pravidelne obnovujú.
-4. V Netlify pridaj premenné:
+4. Vo Vercel (Project → Settings → Environment Variables) pridaj:
 
 | Premenná | Hodnota |
 |---|---|
@@ -28,14 +28,14 @@ Appka potom pri „↻ Obnoviť" automaticky pridá aj Apify výsledky (zdroj **
 Ak premenné nenastavíš, appka funguje ďalej len s RSS.
 
 > Poznámka: aktér vracia rôzne polia — funkcia si sama nájde `title`, `url`, `date` a popis
-> (`description`/`text`/`perex`…). Ak by tvoj aktér používal iné názvy polí, uprav funkciu `normalize` v `apify.js`.
+> (`description`/`text`/`perex`…). Ak by tvoj aktér používal iné názvy polí, uprav funkciu `normalize` v `api/apify.js`.
 
 ---
 
 ## 2) MailerLite (odoslanie vybraných noviniek)
 
 V appke zaškrtneš relevantné novinky a klikneš **„✉️ Odoslať do MailerLite"**. Funkcia
-[`netlify/functions/mailerlite.js`](netlify/functions/mailerlite.js) z nich vytvorí newsletter.
+[`api/mailerlite.js`](api/mailerlite.js) z nich vytvorí newsletter.
 
 **Bezpečné predvolené správanie:** vytvorí sa iba **KONCEPT kampane**. Skontroluješ ho v MailerLite a
 odošleš ručne. Automatické odoslanie sa zapne len úmyselne (`MAILERLITE_AUTOSEND=true`).
@@ -45,7 +45,7 @@ odošleš ručne. Automatické odoslanie sa zapne len úmyselne (`MAILERLITE_AUT
    (Settings → Sender / Domains).
 2. Vytvor API kľúč (Integrations → API → Generate new token).
 3. (Pre auto-odoslanie) zisti si **id skupiny** príjemcov (Subscribers → Groups).
-4. V Netlify pridaj premenné:
+4. Vo Vercel pridaj premenné:
 
 | Premenná | Povinné | Hodnota |
 |---|---|---|
@@ -65,6 +65,6 @@ Po odoslaní nájdeš kampaň v MailerLite v sekcii **Campaigns** (koncept, aleb
 3. **Odoslanie** — tlačidlom sa z výberu vytvorí kampaň v MailerLite (koncept / odoslanie).
 
 ## Bezpečnosť
-- API kľúče drž **len** v premenných prostredia Netlify. Nikdy ich nedávaj do `index.html`,
+- API kľúče drž **len** v premenných prostredia Vercel. Nikdy ich nedávaj do `index.html`,
   do repozitára ani nikomu do správ.
 - Ak by si kľúč omylom zverejnila, v Apify/MailerLite ho zneplatni a vygeneruj nový.
